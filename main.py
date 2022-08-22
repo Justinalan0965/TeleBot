@@ -1,6 +1,5 @@
 from time import time
 import telebot
-import random
 
 API_KEY = "5729641344:AAHo-ghSD97FFEEu0W1GeWVjuWvvxRtMphw"
 bot = telebot.TeleBot(API_KEY)
@@ -21,7 +20,7 @@ def helping(message):
 
 @bot.message_handler(func=lambda msg: msg.text is not None and '@' in msg.text)
 def insta_profile(message):
-    texts = message.split()
+    texts = message.text.split()
     calling = splitter(texts)
 
     bot.reply_to(message, "https://instagram.com/{}".format(calling[1:]))
@@ -31,4 +30,4 @@ while True:
     try:
         bot.polling()
     except Exception:
-        time.sleep(5)
+        time.sleep(2)
