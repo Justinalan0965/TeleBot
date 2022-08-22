@@ -9,7 +9,7 @@ def hi(message):
 
 @bot.message_handler(commands=["insult"])
 a = random.randrange(1,10,1)
-def hi(message):
+def insult(message):
     if a==1:
         bot.reply_to(message, "You are Fat 1")
     elif a==2:
