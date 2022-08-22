@@ -1,3 +1,4 @@
+from time import time
 import telebot
 import random
 
@@ -30,4 +31,4 @@ while True:
     try:
         bot.polling()
     except Exception:
-        bot.sleep(5)
+        time.sleep(5)
