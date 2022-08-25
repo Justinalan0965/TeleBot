@@ -1,6 +1,4 @@
-#from cgitb import text
 import os
-#from subprocess import _TXT
 import time
 import telebot
 import requests
@@ -40,18 +38,18 @@ def getGifUrl(search_term):
         top_8gifs = None
         return top_8gifs
 
-#This is to start the bot
+
 @bot.message_handler(commands=["start"])
 def hi(message):
      bot.reply_to(message, "Welcome to our Bot")
 
 
-#This is to get greet yourself
+
 @bot.message_handler(commands=["greet"])
 def greeting(message):  
     bot.reply_to(message, "Hello, How are you?")
 
-#This is to generate a gif 
+
 @bot.message_handler(func=lambda msg: msg.txt is not None and '$' in msg.text)
 def gifs(message):
     gif_text = for_gif(message)
@@ -60,8 +58,7 @@ def gifs(message):
     gif = getGifUrl(search_ele)
     bot.reply_to(message, gif)
 
-
-#This is to Display the commands  
+ 
 @bot.message_handler(commands=["help"])
 def helping(message):
     bot.reply_to(message, """ There are few commands available in this bot.
@@ -70,19 +67,19 @@ def helping(message):
     $(gifname) - to get a gif of the message
     @(user_name) - to get the insta profile link """)
 
-#To generate your insta profile link
+
 @bot.message_handler(func=lambda msg: msg.text is not None and '@' in msg.text)
 def insta_profile(message):
     texts = message.text.split()
     calling = splitter(texts)
     bot.reply_to(message, "https://instagram.com/{}".format(calling[1:]))
 
-#This is to repeat the message you send
+
 @bot.message_handler(func=lambda m: True)
 def repeat(message):
     bot.send_message(message.chat.id, message.text)
 
-#This is will keep looking for the message
+
 while True:
     try:
         bot.polling()
