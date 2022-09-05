@@ -1,4 +1,3 @@
-import os
 import time
 import telebot
 import requests
@@ -16,13 +15,12 @@ def splitter(msg):
         if "@" in test:
             return test
 
-def for_gif(msg):
-    for dollar in msg:
+def for_gif(msg1):
+    for dollar in msg1:
         if "$" in dollar:
             return dollar
 
 def getGifUrl(search_term):
-    print("Entered")
     apikey = "AIzaSyB6LQderKit11_1xdLeeeT-S7mYzBGzPSY"  # test value
     lmt = 10
     ckey = "TELebot"
@@ -50,22 +48,19 @@ def greeting(message):
     bot.reply_to(message, "Hello, How are you?")
 
 
-@bot.message_handler(func=lambda msg: msg.txt is not None and '$' in msg.text)
+@bot.message_handler(func=lambda msg1: msg1.text is not None and '$' in msg1.text)
 def gifs(message):
-    gif_text = for_gif(message)
+    text = message.text.split()
+    gif_text = for_gif(text)
     search_ele = gif_text[1:]
-    print(search_ele)
     gif = getGifUrl(search_ele)
     bot.reply_to(message, gif)
 
  
-@bot.message_handler(commands=["help"])
+@bot.message_handler(commands=["about"])
 def helping(message):
-    bot.reply_to(message, """ There are few commands available in this bot.
-    /start - to start the bot
-    /greet - to get greetings
-    $(gifname) - to get a gif of the message
-    @(user_name) - to get the insta profile link """)
+     print("into help block")
+     bot.reply_to(message, "There are few commands available in this bot.\n/start - to start the bot\n/greet - to get greetings\n$(gifname) - to get gif\n@(user_name) - to get your insta profile link")
 
 
 @bot.message_handler(func=lambda msg: msg.text is not None and '@' in msg.text)
@@ -73,7 +68,6 @@ def insta_profile(message):
     texts = message.text.split()
     calling = splitter(texts)
     bot.reply_to(message, "https://instagram.com/{}".format(calling[1:]))
-
 
 @bot.message_handler(func=lambda m: True)
 def repeat(message):
