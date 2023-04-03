@@ -3,12 +3,15 @@ import telebot
 import requests
 import json
 import random
+import os
+from keep_alive import keep_alive
 
-API_KEY = "5729641344:AAHo-ghSD97FFEEu0W1GeWVjuWvvxRtMphw"
+API_KEY = os.getenv('tg_token')
 print(API_KEY)
 bot = telebot.TeleBot(API_KEY)
 print("Logged")
 
+keep_alive()
 
 def splitter(msg):
     for test in msg:
@@ -21,7 +24,7 @@ def for_gif(msg1):
             return dollar
 
 def getGifUrl(search_term):
-    apikey = "AIzaSyB6LQderKit11_1xdLeeeT-S7mYzBGzPSY"  # test value
+    apikey = os.getenv('tenor_token')  # test value
     lmt = 10
     ckey = "TELebot"
     # get the top 8 GIFs for the search term
@@ -79,4 +82,3 @@ while True:
         bot.polling()
     except Exception:
         time.sleep(1)
-
